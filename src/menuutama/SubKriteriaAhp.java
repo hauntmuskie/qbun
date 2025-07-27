@@ -2,7 +2,6 @@
 package menuutama;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 /**
  *
@@ -34,11 +33,11 @@ public class SubKriteriaAhp {
     static double[][] matriksNormalisasi4x4 = new double[nBanyak4x4][nBanyak4x4];
     static double[] jumlahMatriksNormalisasi4x4 = new double[nBanyak4x4];
     static double[] prioritas4x4 = new double[nBanyak4x4];
-    static double[] prioritasSub4x4 = new double[nBanyak4x4];
+    double[] prioritasSub4x4 = new double[nBanyak4x4];
     static double[][] matriksNormalisasi3x3 = new double[nBanyak3x3][nBanyak3x3];
     static double[] jumlahMatriksNormalisasi3x3 = new double[nBanyak3x3];
     static double[] prioritas3x3 = new double[nBanyak3x3];
-    static double[] prioritasSub3x3 = new double[nBanyak3x3];
+    double[] prioritasSub3x3 = new double[nBanyak3x3];
 
     /**
      * Matriks Penjumlahan Kriteria
@@ -117,7 +116,7 @@ public class SubKriteriaAhp {
     }
 
     // membuat matriks normalisasi kriteria
-    public static void MatriksNormalisasi4x4() {
+    public void MatriksNormalisasi4x4() {
         // perhitungan nilai dari matriks normalisasi kriteria
         // Jumlah setiap baris dan nilai prioritas
         for (int row = 0; row < nBanyak4x4; row++) {
@@ -136,7 +135,7 @@ public class SubKriteriaAhp {
         }
         for (int i = 0; i < nBanyak4x4; i++) {
             // Perhitungan Prioritas SubKriteria
-            prioritasSub4x4[i] = prioritas4x4[i] / maxNum;
+            this.prioritasSub4x4[i] = prioritas4x4[i] / maxNum;
         }
     }
 
@@ -196,7 +195,7 @@ public class SubKriteriaAhp {
     }
 
     // membuat matriks normalisasi kriteria
-    public static void MatriksNormalisasi3x3() {
+    public void MatriksNormalisasi3x3() {
         // perhitungan nilai dari matriks normalisasi kriteria
         // Jumlah setiap baris dan nilai prioritas
         for (int row = 0; row < nBanyak3x3; row++) {
@@ -215,7 +214,7 @@ public class SubKriteriaAhp {
         }
         for (int i = 0; i < nBanyak3x3; i++) {
             // Perhitungan Prioritas SubKriteria
-            prioritasSub3x3[i] = prioritas3x3[i] / maxNum;
+            this.prioritasSub3x3[i] = prioritas3x3[i] / maxNum;
         }
     }
 
@@ -250,10 +249,10 @@ public class SubKriteriaAhp {
 
     public SubKriteriaAhp() {
         MatriksBerpasangan4x4();
-        MatriksNormalisasi4x4();
+        this.MatriksNormalisasi4x4();
         MatriksPenjumlahan4x4();
         MatriksBerpasangan3x3();
-        MatriksNormalisasi3x3();
+        this.MatriksNormalisasi3x3();
         MatriksPenjumlahan3x3();
     }
 }

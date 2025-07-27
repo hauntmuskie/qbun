@@ -1,7 +1,7 @@
 package menuutama;
 
 import LoginAdmin.Login;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.Locale;
@@ -14,14 +14,14 @@ import koneksi.Koneksi;
  */
 public class MenuUtama extends javax.swing.JFrame {
     Color hoverButton;
-    private Connection conn = (Connection) new Koneksi().connect();
+    private Connection conn = new Koneksi().connect();
 
     /**
      * Creates new form NewJFrame
      */
     public MenuUtama() {
         initComponents();
-        Locale locale = new Locale("id", "ID");
+        Locale locale = Locale.forLanguageTag("id-ID");
         Locale.setDefault(locale);
         setVisible(true);
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
@@ -30,6 +30,16 @@ public class MenuUtama extends javax.swing.JFrame {
         Pane.add(Home);
         Pane.repaint();
         Pane.revalidate();
+
+        try {
+            if (conn != null && !conn.isClosed()) {
+                System.out.println("Database connection established.");
+            } else {
+                System.out.println("Database connection failed.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error checking database connection: " + e.getMessage());
+        }
     }
 
     // untuk sliderMenu
