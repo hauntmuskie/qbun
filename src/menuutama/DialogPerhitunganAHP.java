@@ -144,6 +144,13 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
 
         // Mendapatkan alternatif dari data motor yang ada
         public void getAlternatif() {
+                // Check if a valid motor is selected
+                if (cbIdMotor.getSelectedIndex() == 0
+                                || cbIdMotor.getSelectedItem().toString().equals("-- Pilih Motor --")) {
+                        JOptionPane.showMessageDialog(null, "Silakan pilih motor terlebih dahulu!");
+                        return;
+                }
+
                 String sql = "SELECT DISTINCT * FROM data_motor WHERE id_motor='"
                                 + cbIdMotor.getSelectedItem().toString()
                                 + "'";
@@ -239,6 +246,9 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
 
         // Mendapatkan relasi pada combobox pada database data motor
         public void getRelasiId() {
+                // Add default selection option
+                cbIdMotor.addItem("-- Pilih Motor --");
+
                 String sql = "SELECT DISTINCT id_motor, nama_motor FROM data_motor ORDER BY id_motor";
                 try {
                         java.sql.Statement stat = conn.createStatement();
@@ -1719,7 +1729,8 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
 
         private void mulaiHitungActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_mulaiHitungActionPerformed
                 // Validate that a motor is selected
-                if (cbIdMotor.getSelectedIndex() == 0) {
+                if (cbIdMotor.getSelectedIndex() == 0
+                                || cbIdMotor.getSelectedItem().toString().equals("-- Pilih Motor --")) {
                         JOptionPane.showMessageDialog(null, "Pilih motor terlebih dahulu!");
                         return;
                 }
@@ -1747,6 +1758,13 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
 
         // mendapatkan nama motor dari id yang dipilih
         private void cbIdMotorItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_cbIdMotorItemStateChanged
+                // Check if a valid motor is selected (not the default option)
+                if (cbIdMotor.getSelectedIndex() == 0
+                                || cbIdMotor.getSelectedItem().toString().equals("-- Pilih Motor --")) {
+                        Motor.setText("");
+                        return;
+                }
+
                 String sql = "SELECT DISTINCT nama_motor FROM data_motor WHERE id_motor='"
                                 + cbIdMotor.getSelectedItem().toString() + "';";
                 try {
