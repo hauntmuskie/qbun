@@ -149,4 +149,11 @@ public class KriteriaAhp {
         MatriksNormalisasi();
         MatriksPenjumlahan();
     }
+
+    // Method to perform full criteria calculation
+    public void hitungKriteria() {
+        MatriksBerpasangan();
+        MatriksNormalisasi();
+        MatriksPenjumlahan();
+    }
 }

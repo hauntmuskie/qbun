@@ -36,6 +36,8 @@ public class DataMotor extends javax.swing.JPanel {
                 "ID Motor",
                 "Nama Motor",
                 "Merek",
+                "Tahun Produksi",
+                "Warna Motor",
                 "Harga OTR",
                 "Kapasitas Mesin",
                 "Irit Bahan Bakar",
@@ -58,16 +60,18 @@ public class DataMotor extends javax.swing.JPanel {
                 String a = hasil.getString("id_motor");
                 String b = hasil.getString("nama_motor");
                 String c = hasil.getString("merek");
-                String d = hasil.getString("harga_otr");
-                String e = hasil.getString("kapasitas_mesin");
-                String f = hasil.getString("irit_bahan_bakar");
-                String g = hasil.getString("desain_model");
-                String h = hasil.getString("kategori_harga");
-                String i = hasil.getString("kategori_cc");
-                String j = hasil.getString("kategori_irit");
-                String k = hasil.getString("kategori_desain");
+                String d = hasil.getString("tahun_produksi");
+                String e = hasil.getString("warna_motor");
+                String f = hasil.getString("harga_otr");
+                String g = hasil.getString("kapasitas_mesin");
+                String h = hasil.getString("irit_bahan_bakar");
+                String i = hasil.getString("desain_model");
+                String j = hasil.getString("kategori_harga");
+                String k = hasil.getString("kategori_cc");
+                String l = hasil.getString("kategori_irit");
+                String m = hasil.getString("kategori_desain");
 
-                String[] data = { a, b, c, d, e, f, g, h, i, j, k };
+                String[] data = { a, b, c, d, e, f, g, h, i, j, k, l, m };
                 tabmode.addRow(data);
             }
         } catch (SQLException e) {
@@ -91,9 +95,11 @@ public class DataMotor extends javax.swing.JPanel {
         String i = tabmode.getValueAt(bar, 8).toString();
         String j = tabmode.getValueAt(bar, 9).toString();
         String k = tabmode.getValueAt(bar, 10).toString();
+        String l = tabmode.getValueAt(bar, 11).toString();
+        String m = tabmode.getValueAt(bar, 12).toString();
 
         noId = a;
-        dialog.setDataTabel(a, b, c, d, e, f, g, h, i, j, k);
+        dialog.setDataTabel(a, b, c, d, e, f, g, h, i, j, k, l, m);
     }
 
     protected void hapusDataMotor() {

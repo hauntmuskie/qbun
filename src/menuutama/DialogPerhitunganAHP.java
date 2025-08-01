@@ -93,51 +93,38 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
         // nilai prioritas untuk sub-kriteria dari kriteria yang tersedia
         public void getPrioritasSub() {
                 getKriteria();
-                if (K.get(0).equals("Irit Bahan Bakar") || K.get(0).equals("Desain")) {
-                        PriorS11.setText(df.format(SubK.prioritasSub4x4[0]));
-                        PriorS12.setText(df.format(SubK.prioritasSub4x4[1]));
-                        PriorS13.setText(df.format(SubK.prioritasSub4x4[2]));
-                        PriorS14.setText(df.format(SubK.prioritasSub4x4[3]));
-                }
-                if (K.get(1).equals("Irit Bahan Bakar") || K.get(1).equals("Desain")) {
-                        PriorS21.setText(df.format(SubK.prioritasSub4x4[0]));
-                        PriorS22.setText(df.format(SubK.prioritasSub4x4[1]));
-                        PriorS23.setText(df.format(SubK.prioritasSub4x4[2]));
-                        PriorS24.setText(df.format(SubK.prioritasSub4x4[3]));
-                }
-                if (K.get(2).equals("Irit Bahan Bakar") || K.get(2).equals("Desain")) {
-                        PriorS31.setText(df.format(SubK.prioritasSub4x4[0]));
-                        PriorS32.setText(df.format(SubK.prioritasSub4x4[1]));
-                        PriorS33.setText(df.format(SubK.prioritasSub4x4[2]));
-                        PriorS34.setText(df.format(SubK.prioritasSub4x4[3]));
-                }
-                if (K.get(3).equals("Irit Bahan Bakar") || K.get(3).equals("Desain")) {
-                        PriorS41.setText(df.format(SubK.prioritasSub4x4[0]));
-                        PriorS42.setText(df.format(SubK.prioritasSub4x4[1]));
-                        PriorS43.setText(df.format(SubK.prioritasSub4x4[2]));
-                        PriorS44.setText(df.format(SubK.prioritasSub4x4[3]));
-                }
-                if (K.get(0).equals("Kapasitas Mesin") || K.get(0).equals("Harga")) {
-                        PriorS11.setText(df.format(SubK.prioritasSub3x3[0]));
-                        PriorS12.setText(df.format(SubK.prioritasSub3x3[1]));
-                        PriorS13.setText(df.format(SubK.prioritasSub3x3[2]));
-                }
-                if (K.get(1).equals("Kapasitas Mesin") || K.get(1).equals("Harga")) {
-                        PriorS21.setText(df.format(SubK.prioritasSub3x3[0]));
-                        PriorS22.setText(df.format(SubK.prioritasSub3x3[1]));
-                        PriorS23.setText(df.format(SubK.prioritasSub3x3[2]));
-                }
-                if (K.get(2).equals("Kapasitas Mesin") || K.get(2).equals("Harga")) {
-                        PriorS31.setText(df.format(SubK.prioritasSub3x3[0]));
-                        PriorS32.setText(df.format(SubK.prioritasSub3x3[1]));
-                        PriorS33.setText(df.format(SubK.prioritasSub3x3[2]));
-                }
-                if (K.get(3).equals("Kapasitas Mesin") || K.get(3).equals("Harga")) {
-                        PriorS41.setText(df.format(SubK.prioritasSub3x3[0]));
-                        PriorS42.setText(df.format(SubK.prioritasSub3x3[1]));
-                        PriorS43.setText(df.format(SubK.prioritasSub3x3[2]));
-                }
+                // All criteria now use 3x3 subcriteria matrix
+                SubK.hitungSubKriteria3x3();
 
+                // Use 3x3 priorities for all criteria
+                for (int i = 0; i < K.size() && i < 4; i++) {
+                        switch (i) {
+                                case 0:
+                                        PriorS11.setText(df.format(SubK.prioritasSub3x3[0]));
+                                        PriorS12.setText(df.format(SubK.prioritasSub3x3[1]));
+                                        PriorS13.setText(df.format(SubK.prioritasSub3x3[2]));
+                                        PriorS14.setText("0"); // Not used in 3x3
+                                        break;
+                                case 1:
+                                        PriorS21.setText(df.format(SubK.prioritasSub3x3[0]));
+                                        PriorS22.setText(df.format(SubK.prioritasSub3x3[1]));
+                                        PriorS23.setText(df.format(SubK.prioritasSub3x3[2]));
+                                        PriorS24.setText("0"); // Not used in 3x3
+                                        break;
+                                case 2:
+                                        PriorS31.setText(df.format(SubK.prioritasSub3x3[0]));
+                                        PriorS32.setText(df.format(SubK.prioritasSub3x3[1]));
+                                        PriorS33.setText(df.format(SubK.prioritasSub3x3[2]));
+                                        PriorS34.setText("0"); // Not used in 3x3
+                                        break;
+                                case 3:
+                                        PriorS41.setText(df.format(SubK.prioritasSub3x3[0]));
+                                        PriorS42.setText(df.format(SubK.prioritasSub3x3[1]));
+                                        PriorS43.setText(df.format(SubK.prioritasSub3x3[2]));
+                                        PriorS44.setText("0"); // Not used in 3x3
+                                        break;
+                        }
+                }
         }
 
         // menentukan kriteria pada kode K1, K2, K3, K4
@@ -167,17 +154,24 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
                                 String a = hasil.getString("id_motor");
                                 String b = hasil.getString("nama_motor");
                                 String c = hasil.getString("merek");
-                                String d = hasil.getString("harga_otr");
-                                String e = hasil.getString("kapasitas_mesin");
-                                String f = hasil.getString("irit_bahan_bakar");
-                                String g = hasil.getString("desain_model");
+                                String d = hasil.getString("tahun_produksi");
+                                String e = hasil.getString("warna_motor");
+                                String f = hasil.getString("harga_otr");
+                                String g = hasil.getString("kapasitas_mesin");
+                                String h = hasil.getString("irit_bahan_bakar");
+                                String i = hasil.getString("desain_model");
+                                String j = hasil.getString("kategori_harga");
+                                String k = hasil.getString("kategori_cc");
+                                String l = hasil.getString("kategori_irit");
+                                String m = hasil.getString("kategori_desain");
+
                                 noIdAlternatif = a;
                                 namaMotorAlternatif = b;
                                 merekAlternatif = c;
-                                hargaOtrAlternatif = d;
-                                kapasitasMesinAlternatif = e;
-                                iritBahanBakarAlternatif = f;
-                                desainModelAlternatif = g;
+                                hargaOtrAlternatif = f;
+                                kapasitasMesinAlternatif = k; // Use kategori_cc instead of kapasitas_mesin
+                                iritBahanBakarAlternatif = l; // Use kategori_irit instead of irit_bahan_bakar
+                                desainModelAlternatif = m; // Use kategori_desain instead of desain_model
                         }
                 } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, e);
@@ -187,7 +181,12 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
         // melakukan perhitungan dari alternatif yang dipilih
         // untuk mendapatkan hasil penilaian
         public void getPenilaian() {
-                // perhitungan untuk harga (K1)
+                totalNilai = 0.0; // Reset total before calculation
+                getAlternatif();
+                kriteria.hitungKriteria();
+                SubK.hitungSubKriteria3x3();
+
+                // perhitungan untuk harga (K1) - using 3x3 matrix
                 if (hargaOtrAlternatif.contains("EKONOMIS")) {
                         nilaiAlternatif = SubK.prioritasSub3x3[0] * kriteria.prioritas[0];
                         totalNilai += nilaiAlternatif;
@@ -199,7 +198,7 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
                         totalNilai += nilaiAlternatif;
                 }
 
-                // perhitungan untuk kapasitas mesin (K2)
+                // perhitungan untuk kapasitas mesin (K2) - using 3x3 matrix
                 if (kapasitasMesinAlternatif.contains("Kecil")) {
                         nilaiAlternatif = SubK.prioritasSub3x3[0] * kriteria.prioritas[1];
                         totalNilai += nilaiAlternatif;
@@ -211,36 +210,31 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
                         totalNilai += nilaiAlternatif;
                 }
 
-                // perhitungan untuk irit bahan bakar (K3)
+                // perhitungan untuk irit bahan bakar (K3) - using 3x3 matrix
                 if (iritBahanBakarAlternatif.contains("Irit")) {
-                        nilaiAlternatif = SubK.prioritasSub4x4[0] * kriteria.prioritas[2];
+                        nilaiAlternatif = SubK.prioritasSub3x3[0] * kriteria.prioritas[2];
                         totalNilai += nilaiAlternatif;
                 } else if (iritBahanBakarAlternatif.contains("Sedang")) {
-                        nilaiAlternatif = SubK.prioritasSub4x4[1] * kriteria.prioritas[2];
+                        nilaiAlternatif = SubK.prioritasSub3x3[1] * kriteria.prioritas[2];
                         totalNilai += nilaiAlternatif;
                 } else if (iritBahanBakarAlternatif.contains("Boros")) {
-                        nilaiAlternatif = SubK.prioritasSub4x4[2] * kriteria.prioritas[2];
-                        totalNilai += nilaiAlternatif;
-                } else {
-                        nilaiAlternatif = SubK.prioritasSub4x4[3] * kriteria.prioritas[2];
+                        nilaiAlternatif = SubK.prioritasSub3x3[2] * kriteria.prioritas[2];
                         totalNilai += nilaiAlternatif;
                 }
 
-                // perhitungan untuk desain (K4)
+                // perhitungan untuk desain (K4) - using 3x3 matrix
                 if (desainModelAlternatif.contains("Sporty/Agresif")) {
-                        nilaiAlternatif = SubK.prioritasSub4x4[0] * kriteria.prioritas[3];
+                        nilaiAlternatif = SubK.prioritasSub3x3[0] * kriteria.prioritas[3];
                         totalNilai += nilaiAlternatif;
                 } else if (desainModelAlternatif.contains("Retro/Stylish")) {
-                        nilaiAlternatif = SubK.prioritasSub4x4[1] * kriteria.prioritas[3];
+                        nilaiAlternatif = SubK.prioritasSub3x3[1] * kriteria.prioritas[3];
                         totalNilai += nilaiAlternatif;
                 } else if (desainModelAlternatif.contains("Futuristik/Modern")) {
-                        nilaiAlternatif = SubK.prioritasSub4x4[2] * kriteria.prioritas[3];
-                        totalNilai += nilaiAlternatif;
-                } else {
-                        nilaiAlternatif = SubK.prioritasSub4x4[3] * kriteria.prioritas[3];
+                        nilaiAlternatif = SubK.prioritasSub3x3[2] * kriteria.prioritas[3];
                         totalNilai += nilaiAlternatif;
                 }
-                TotalNilai.setText(Double.toString(totalNilai));
+
+                TotalNilai.setText(df.format(totalNilai));
         }
 
         // Mendapatkan relasi pada combobox pada database data motor
@@ -1724,14 +1718,30 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
          // tombol mulai perhitungan
 
         private void mulaiHitungActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_mulaiHitungActionPerformed
-                // Mendapatkan perhitungan metode AHP
-                getMatriksK();
-                getMatriksNorK();
-                getPrioritasSub();
-                getAlternatif();
-                getPenilaian();
-                totalNilai = 0;
-                // Menyimpan Alternatif hasil penilaian metode AHP
+                // Validate that a motor is selected
+                if (cbIdMotor.getSelectedIndex() == 0) {
+                        JOptionPane.showMessageDialog(null, "Pilih motor terlebih dahulu!");
+                        return;
+                }
+
+                try {
+                        // Mendapatkan perhitungan metode AHP
+                        kriteria.hitungKriteria();
+                        SubK.hitungSubKriteria3x3();
+
+                        getMatriksK();
+                        getMatriksNorK();
+                        getPrioritasSub();
+                        getAlternatif();
+                        getPenilaian();
+
+                        JOptionPane.showMessageDialog(null,
+                                        "Perhitungan berhasil! Total nilai: " + TotalNilai.getText());
+
+                } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Error dalam perhitungan: " + e.getMessage());
+                        e.printStackTrace();
+                }
 
         }// GEN-LAST:event_mulaiHitungActionPerformed
 
@@ -1754,20 +1764,69 @@ public class DialogPerhitunganAHP extends javax.swing.JDialog {
 
         private void SimpanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SimpanActionPerformed
                 // TODO add your handling code here:
-                String sql = "INSERT INTO seleksi VALUES (?,?,?,?)";
+                if (noIdAlternatif == null || TotalNilai.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Silakan lakukan perhitungan terlebih dahulu!");
+                        return;
+                }
+
                 try {
-                        PreparedStatement stat = conn.prepareStatement(sql);
+                        // Check if record already exists
+                        String checkSql = "SELECT COUNT(*) FROM seleksi WHERE id_motor = ?";
+                        PreparedStatement checkStat = conn.prepareStatement(checkSql);
+                        checkStat.setString(1, noIdAlternatif);
+                        ResultSet result = checkStat.executeQuery();
 
-                        stat.setString(1, noIdAlternatif);
-                        stat.setString(2, namaMotorAlternatif);
-                        stat.setString(3, merekAlternatif);
-                        stat.setString(4, TotalNilai.getText());
+                        boolean exists = false;
+                        if (result.next()) {
+                                exists = result.getInt(1) > 0;
+                        }
 
-                        stat.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "DATA berhasil disimpan");
+                        if (exists) {
+                                // Update existing record
+                                String updateSql = "UPDATE seleksi SET nama_motor=?, merek=?, hasil_penilaian=? WHERE id_motor=?";
+                                PreparedStatement updateStat = conn.prepareStatement(updateSql);
+                                updateStat.setString(1, namaMotorAlternatif);
+                                updateStat.setString(2, merekAlternatif);
+                                updateStat.setDouble(3, Double.parseDouble(TotalNilai.getText().replace(",", ".")));
+                                updateStat.setString(4, noIdAlternatif);
+                                updateStat.executeUpdate();
+                                JOptionPane.showMessageDialog(null, "DATA berhasil diupdate");
+                        } else {
+                                // Get next ranking
+                                String maxRankSql = "SELECT COALESCE(MAX(ranking), 0) + 1 as next_rank FROM seleksi";
+                                PreparedStatement maxRankStat = conn.prepareStatement(maxRankSql);
+                                ResultSet maxRankResult = maxRankStat.executeQuery();
+                                int nextRank = 1;
+                                if (maxRankResult.next()) {
+                                        nextRank = maxRankResult.getInt("next_rank");
+                                }
+
+                                // Insert new record
+                                String insertSql = "INSERT INTO seleksi VALUES (?,?,?,?,?)";
+                                PreparedStatement insertStat = conn.prepareStatement(insertSql);
+                                insertStat.setString(1, noIdAlternatif);
+                                insertStat.setString(2, namaMotorAlternatif);
+                                insertStat.setString(3, merekAlternatif);
+                                insertStat.setDouble(4, Double.parseDouble(TotalNilai.getText().replace(",", ".")));
+                                insertStat.setInt(5, nextRank);
+                                insertStat.executeUpdate();
+                                JOptionPane.showMessageDialog(null, "DATA berhasil disimpan");
+                        }
+
+                        // Update rankings based on hasil_penilaian (highest score gets rank 1)
+                        String updateRankSql = "SET @rank = 0; " +
+                                        "UPDATE seleksi SET ranking = (@rank := @rank + 1) " +
+                                        "ORDER BY hasil_penilaian DESC";
+                        java.sql.Statement updateRankStat = conn.createStatement();
+                        updateRankStat.execute("SET @rank = 0");
+                        updateRankStat.executeUpdate(
+                                        "UPDATE seleksi SET ranking = (@rank := @rank + 1) ORDER BY hasil_penilaian DESC");
+
                         kosong();
                 } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null, "Data gagal disimpan " + e);
+                        JOptionPane.showMessageDialog(null, "Data gagal disimpan: " + e.getMessage());
+                } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Format nilai tidak valid: " + e.getMessage());
                 }
         }// GEN-LAST:event_SimpanActionPerformed
 

@@ -255,4 +255,11 @@ public class SubKriteriaAhp {
         this.MatriksNormalisasi3x3();
         MatriksPenjumlahan3x3();
     }
+
+    // Method to perform full 3x3 subcriteria calculation
+    public void hitungSubKriteria3x3() {
+        MatriksBerpasangan3x3();
+        this.MatriksNormalisasi3x3();
+        MatriksPenjumlahan3x3();
+    }
 }
